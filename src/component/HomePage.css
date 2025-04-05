@@ -1,5 +1,44 @@
 .grid {
- display: grid;
- grid-template-columns: repeat(8,2fr);
- gap: 9px;
+    display: grid;
+    grid-template-columns: repeat(8, 2fr);
+    gap: 8px;
+   }
+   .pageToggle {
+       display: flex; /* Enable Flexbox */
+       justify-content: center; /* Center buttons horizontally */
+       align-items: center; /* Center buttons vertically */
+     /* Set a fixed height for vertical centering */
+     margin-top: 20px;
+   }
+   
+   .pageToggle button{
+       
+    display: flex; /* Ensure buttons use Flexbox */
+    justify-content: center; /* Center button content horizontally */
+    align-items: center; /* Center button content vertically */
+    margin-right: 10px; /* Add spacing between buttons */
+    margin-left: 10px;
+    width: 200px; /* Set button width */
+    text-align: center; /* Center text inside the button */
+    font-size: 20px; /* Set text size */
+    padding: 10px; /* Add padding for better spacing */
+    border: 2px solid white; /* Add a white border */
+    background-color: transparent; /* Optional: Make the background transparent */
+    color: white; /* Optional: Set text color to white */
+    border-radius: 5px; /* Optional: Add rounded corners */
+   }
+   .pageToggle h3{
+    margin: 0 10px; /* Add spacing on both sides of the text */
+    font-size: 20px; /* Set the font size for the page number */
+    color: white; /* Set the text color to white */
+    text-align: center; /* Center the text */
+    width: 200px; /* Match the width of the buttons */
+    height: 24px;
+    padding: 10px; /* Match the padding of the buttons */
+    border: 2px solid white; /* Add a white border like the buttons */
+    border-radius: 5px; /* Add rounded corners like the buttons */
+    background-color: transparent; /* Match the background color of the buttons */
+    display: flex; /* Use Flexbox for centering */
+    justify-content: center; /* Center the text horizontally */
+    align-items: center; /* Center the text vertically */
 }

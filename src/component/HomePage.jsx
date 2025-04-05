@@ -22,36 +22,29 @@ useEffect(() => {
   fetchData();
 }, [page]); 
 
-
-      const handleNextPage = async () => {
-        setPage((prevPage) => {
-            const nextPage = prevPage + 1;
-            // const offset = nextPage * 40;
-            // const limit = 40;
-
-            // fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`)
-            //     .then((response) => response.json())
-            //     .then((data) => {
-            //         setPokemons(data.results);
-            //     })
-            //     .catch((error) => {
-            //         console.error('Error fetching next page data:', error);
-            //     });
-
-            return nextPage;
-        });
+ const handelPreviousPage = ()=>{
+    setPage(page-1)
+ }
+  const handleNextPage = () => {
+        setPage(page+1)
     };
 
       // type: result.types.map((type) => type.type.name).join(', '),
  return (
+<div >
   <div className="grid"> 
   {
     pokemons.map(poke => <Pokemon  key={poke.url} poke={poke}></Pokemon> )
   }
-  <button onClick={ () => handleNextPage()}> Next </button>
-  <button> previous </button>
   </div>
-  
+  <div className="pageToggle">
+       
+       <h3>{page}</h3>
+       <button onClick={ () =>handelPreviousPage()}> Previous </button>
+        <h3>{page}</h3>
+       <button onClick={ () => handleNextPage()}> Next </button>
+  </div>
+  </div>
  )
 
 }
