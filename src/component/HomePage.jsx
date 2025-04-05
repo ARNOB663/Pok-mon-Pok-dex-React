@@ -39,7 +39,6 @@ useEffect(() => {
   </div>
   <div className="pageToggle">
        
-       <h3>{page}</h3>
        <button onClick={ () =>handelPreviousPage()}> Previous </button>
         <h3>{page}</h3>
        <button onClick={ () => handleNextPage()}> Next </button>

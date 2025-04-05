@@ -1,0 +1,31 @@
+.search-bar {
+    padding: 8px 12px;
+    margin: auto;
+    margin-left: -40px;
+    margin-top: 80px;
+    font-size: 1rem;
+    width: 80%;
+    height: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    display: block;
+  }
+  .search-area {
+    display: flex;
+    margin: auto;
+    height: 150px;
+    background-color: rgb(245, 14, 14);
+    border-radius: 10px; /* Add a border radius */
+}
+
+.search-area h3 {
+    font-size: 30px; /* Set the font size */
+    color: white; /* Set the text color */
+    margin-bottom: 20px; /* Add spacing below the heading */
+    margin-left: 20px;
+    margin-top: 12px;
+    text-align: center; /* Center the text */
+    font-weight: bold; /* Make the text bold */
+    font-family: Arial, sans-serif; /* Set a clean font */
+}
+  
