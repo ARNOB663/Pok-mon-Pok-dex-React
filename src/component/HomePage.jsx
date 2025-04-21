@@ -6,14 +6,19 @@ import './HomePage.css'
 export default function HomePage(){
 const [pokemons,setPokemons] = useState([])
 const [page,setPage] = useState(0)
+const [totalPages, setTotalPages] = useState(0);
+
+const itemsPerPage = 40;
     
 useEffect(() => {
   async function fetchData() {
     try {
       const offset = page * 40;
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=40`);
+
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${itemsPerPage}`);
       const data = await response.json();
       setPokemons(data.results);
+      setTotalPages(Math.ceil(data.count / itemsPerPage));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -23,12 +28,13 @@ useEffect(() => {
 }, [page]); 
 
  const handelPreviousPage = ()=>{
+  if(page > 0)
     setPage(page-1)
  }
   const handleNextPage = () => {
+    if(page < totalPages)
         setPage(page+1)
     };
-
       // type: result.types.map((type) => type.type.name).join(', '),
  return (
 <div >
