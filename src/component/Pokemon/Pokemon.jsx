@@ -21,13 +21,13 @@ export default function Pokemon({poke}){
 
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1">
-      <div className="p-4">
+      <div className="p-2 sm:p-3 md:p-4">
         <img 
           src={image} 
           alt={poke.name}
-          className="w-full h-48 object-contain"
+          className="w-full h-32 sm:h-40 md:h-48 object-contain"
         />
-        <h3 className="mt-2 text-lg font-semibold text-gray-800 capitalize">
+        <h3 className="mt-2 text-sm sm:text-base md:text-lg font-semibold text-gray-800 capitalize text-center">
           {poke.name}
         </h3>
       </div>
