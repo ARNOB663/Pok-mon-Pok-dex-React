@@ -1,63 +1,74 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Pokemon from "./Pokemon/Pokemon";
 
-export default function HomePage(){
-const [pokemons,setPokemons] = useState([])
-const [page,setPage] = useState(0)
-const [totalPages, setTotalPages] = useState(0);
+export default function HomePage() {
+  const [pokemons, setPokemons] = useState([]);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
-const itemsPerPage = 40;
-    
-useEffect(() => {
-  async function fetchData() {
-    try {
-      const offset = page * 40;
+  const itemsPerPage = 40;
 
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${itemsPerPage}`);
-      const data = await response.json();
-      setPokemons(data.results);
-      setTotalPages(Math.ceil(data.count / itemsPerPage));
-    } catch (error) {
-      console.error("Error fetching data:", error);
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+      try {
+        const offset = page * itemsPerPage;
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${itemsPerPage}`);
+        const data = await response.json();
+        setPokemons(data.results);
+        setTotalPages(Math.ceil(data.count / itemsPerPage));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
-  }
 
-  fetchData();
-}, [page]); 
+    fetchData();
+  }, [page]);
 
-const handelPreviousPage = () => {
-  if(page > 0)
-    setPage(page-1)
-}
+  const handlePreviousPage = () => {
+    if (page > 0) setPage(page - 1);
+  };
 
-const handleNextPage = () => {
-  if(page < totalPages)
-    setPage(page+1)
-};
+  const handleNextPage = () => {
+    if (page < totalPages - 1) setPage(page + 1);
+  };
 
-return (
-  <div className="min-h-screen bg-gray-100">
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-2 sm:gap-3 md:gap-4 p-2 sm:p-3 md:p-4"> 
-      {pokemons.map(poke => <Pokemon key={poke.url} poke={poke}></Pokemon>)}
+  return (
+    <div className="home-container">
+      <div className="pokemon-grid">
+        {isLoading ? (
+          Array.from({ length: itemsPerPage }).map((_, index) => (
+            <div key={index} className="skeleton">
+              <div className="skeleton-image"></div>
+              <div className="skeleton-text"></div>
+            </div>
+          ))
+        ) : (
+          pokemons.map(poke => <Pokemon key={poke.url} poke={poke} />)
+        )}
+      </div>
+      <div className="pagination-container">
+        <button
+          onClick={handlePreviousPage}
+          disabled={page === 0}
+          className="pagination-button"
+        >
+          Previous
+        </button>
+        <h3 className="pagination-info">
+          Page {page + 1} of {totalPages}
+        </h3>
+        <button
+          onClick={handleNextPage}
+          disabled={page === totalPages - 1}
+          className="pagination-button"
+        >
+          Next
+        </button>
+      </div>
     </div>
-    <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 p-3 sm:p-4 bg-red-500 rounded-2xl shadow-lg mx-auto my-4 sm:my-8 w-[95%] sm:w-full max-w-7xl">
-      <button 
-        onClick={handelPreviousPage}
-        className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 text-white border-2 border-white rounded-lg hover:bg-white hover:text-red-500 transition-all duration-300 font-semibold text-sm sm:text-base"
-      >
-        Previous
-      </button>
-      <h3 className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 text-white border-2 border-white rounded-lg font-semibold text-sm sm:text-base text-center">
-        {page}
-      </h3>
-      <button 
-        onClick={handleNextPage}
-        className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 text-white border-2 border-white rounded-lg hover:bg-white hover:text-red-500 transition-all duration-300 font-semibold text-sm sm:text-base"
-      >
-        Next
-      </button>
-    </div>
-  </div>
-);
+  );
 }
